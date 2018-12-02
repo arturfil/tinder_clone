@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.util.Timer;
 import java.util.TimerTask;
 
 public class Login extends AppCompatActivity {
@@ -21,7 +20,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.slider);
+        setContentView(R.layout.login_slider);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
@@ -38,7 +37,7 @@ public class Login extends AppCompatActivity {
 
             dots[i] = new ImageView(this);
             dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                    R.drawable.non_active_dot));
+                    R.drawable.active_dot));
 
     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -49,7 +48,7 @@ public class Login extends AppCompatActivity {
         }
 
         dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                R.drawable.active_dot));
+                R.drawable.non_active_dot));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -62,11 +61,11 @@ public class Login extends AppCompatActivity {
 
                 for (int j = 0; j < dotscount; j++) {
                     dots[j].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                            R.drawable.non_active_dot));
+                            R.drawable.active_dot));
                 }
 
                 dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                        R.drawable.active_dot));
+                        R.drawable.non_active_dot));
                 
             }
 
