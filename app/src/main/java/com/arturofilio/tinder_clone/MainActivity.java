@@ -1,10 +1,13 @@
 package com.arturofilio.tinder_clone;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import android.app.Activity;
@@ -13,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,11 +26,19 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> al;
     private ArrayAdapter<String> arrayAdapter;
     private int i;
+    private Context mContext = MainActivity.this;
+
+    FirebaseAuth mAuth;
+
+    Button mLogoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        mLogoutBtn = (Button) findViewById(R.id.btn_logout);
 
         al = new ArrayList<>();
         al.add("php");
@@ -86,7 +98,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(mContext, WelcomeActivity.class);
+                Toast.makeText(mContext, "You were logged out", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+        });
     }
+
 
     static void makeTost(Context ctx, String s) {
         Toast.makeText(ctx,s, Toast.LENGTH_SHORT).show();

@@ -28,7 +28,11 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-database:15.0.1'
 
+    // Edit Text Library
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

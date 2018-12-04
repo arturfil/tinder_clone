@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line_background"
+                    android:id="@+id/edt_email"
+                    android:hint="My Email is"
+                    android:textColorHint="@android:color/black"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="textEmailAddress"
+                    app:met_baseColor="@android:color/black"
+                    app:met_primaryColor="@android:color/darker_gray"
+                    app:met_singleLineEllipsis="false"
+                    />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_password"
+                    android:background="@drawable/line_background"
+                    android:hint="My password is"
+                    android:textColorHint="@android:color/black"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="textPassword"
+                    app:met_baseColor="@android:color/black"
+                    app:met_primaryColor="@android:color/darker_gray"
+                    app:met_singleLineEllipsis="false"
+                    />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_password2"
+                    android:hint="Confirming my password"
+                    android:textColorHint="@android:color/black"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="textPassword"
+                    app:met_baseColor="@android:color/black"
+                    app:met_primaryColor="@android:color/darker_gray"
+                    app:met_singleLineEllipsis="false"
+                    />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_name"
+                    android:hint="My Name is"
+                    android:textColorHint="@android:color/black"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="text"
+                    app:met_baseColor="@android:color/black"
+                    app:met_primaryColor="@android:color/darker_gray"
+                    app:met_singleLineEllipsis="false"
+                    tools:ignore="DuplicateIds" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_birthday"
+                    android:hint="My Birth Day is (MM/DD/YYYY)"
+                    android:textColorHint="@android:color/black"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="date"
+                    app:met_baseColor="@android:color/black"
+                    app:met_primaryColor="@android:color/darker_gray"
+                    app:met_singleLineEllipsis="false"
+                    />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gender_selection"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="40dp"
+                    >
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/male_radio"
+                            android:textSize="30dp"
+                            android:textColor="@android:color/darker_gray"
+                            android:layout_marginEnd="20dp"
+                            android:text="Male"/>
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/female_radio"
+                            android:layout_marginStart="20dp"
+                            android:textSize="30dp"
+                            android:textColor="@android:color/darker_gray"
+                            android:text="Female"
+                            />
+
+                </RadioGroup>
+
+
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/name_edt"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/reg_btn_style"
+                    android:text="Register"
+                    android:textColor="#ffffff" />
+
+        </LinearLayout>
+
+
+
+</RelativeLayout>

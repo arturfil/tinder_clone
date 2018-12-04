@@ -1,30 +1,38 @@
 package com.arturofilio.tinder_clone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.TimerTask;
 
-public class Login extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     LinearLayout sliderDotspanel;
+    TextView mSignup;
+    Button mbtnSingUp;
+
     private int dotscount;
     private ImageView[] dots;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_slider);
+        setContentView(R.layout.activity_welcome);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-
+        mSignup         = (TextView)     findViewById(R.id.sign_up_link);
+        viewPager       = (ViewPager)    findViewById(R.id.viewPager);
         sliderDotspanel = (LinearLayout) findViewById(R.id.slider_dots);
+        mbtnSingUp      = (Button)       findViewById(R.id.btn_signin);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
 
@@ -39,8 +47,8 @@ public class Login extends AppCompatActivity {
             dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
                     R.drawable.active_dot));
 
-    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout
+                    .LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             params.setMargins(8, 0, 8, 0);
             sliderDotspanel.addView(dots[i], params);
@@ -75,8 +83,21 @@ public class Login extends AppCompatActivity {
             }
         });
 
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new MyTimerTask(), 3000, 3000);
+        mbtnSingUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -86,7 +107,7 @@ public class Login extends AppCompatActivity {
         @Override
         public void run() {
 
-            Login.this.runOnUiThread(new Runnable() {
+            WelcomeActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
 
