@@ -16,20 +16,27 @@
         tools:context=".MyActivity" />
 
 
-    <Button
-        android:id="@+id/btn_logout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:paddingTop="20dp"
-        android:layout_below="@+id/frame"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_weight="0"
-        android:background="@drawable/reg_btn_style"
-        android:text="Log Out"
-        android:textColor="#ffffff" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/frame"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="0"
+            android:background="@drawable/reg_btn_style"
+            android:text="Log Out"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
