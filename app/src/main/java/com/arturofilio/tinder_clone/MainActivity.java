@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private arrayAdapter arrayAdapter;
     private int i;
     private Context mContext = MainActivity.this;
+    private String currentUId;
+    private DatabaseReference usersDb;
 
     ListView listView;
     List<Cards> rowItems;
@@ -50,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         checkGender();
 
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getCurrentUser().getUid();
+
         mLogoutBtn = (Button) findViewById(R.id.btn_logout);
 
         rowItems = new ArrayList<Cards>();
@@ -69,15 +74,24 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLeftCardExit(Object o) {
+            public void onLeftCardExit(Object dataObject) {
+
+                Cards obj = (Cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(oppositeGender).child(userId).child("connections").child("like")
+                        .child(currentUId).setValue(true);
                 Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
-//                makeTost(MainActivity.this, "Left!");
+
             }
 
             @Override
-            public void onRightCardExit(Object o) {
+            public void onRightCardExit(Object dataObject) {
+
+                Cards obj = (Cards) dataObject;
+                String userId = obj.getUserId();
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
-//                makeTost(MainActivity.this, "Right!");
+                usersDb.child(oppositeGender).child(userId).child("connections").child("nope")
+                        .child(currentUId).setValue(true);
             }
 
             @Override
@@ -120,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists()
+                        && !dataSnapshot.child("connections").child("nope").hasChild(currentUId)
+                        && !dataSnapshot.child("connections").child("like").hasChild(currentUId)) {
 
                     Cards item = new Cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString());
                     rowItems.add(item);
@@ -158,7 +174,9 @@ public class MainActivity extends AppCompatActivity {
     public void checkGender() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference maleDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Male");
+        DatabaseReference maleDb = FirebaseDatabase.getInstance().getReference().child("Users")
+                .child("Male");
+
         maleDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -191,7 +209,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference femaleDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Female");
+        DatabaseReference femaleDb = FirebaseDatabase.getInstance().getReference().child("Users")
+                .child("Female");
+
         femaleDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
