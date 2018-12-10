@@ -1,6 +1,8 @@
 package com.arturofilio.tinder_clone;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import android.app.Activity;
@@ -31,12 +34,18 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     private Cards cards_data[];
     private arrayAdapter arrayAdapter;
     private int i;
     private Context mContext = MainActivity.this;
     private String currentUId;
     private DatabaseReference usersDb;
+
+    // variables for the pageAdapter
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     ListView listView;
     List<Cards> rowItems;
@@ -52,11 +61,24 @@ public class MainActivity extends AppCompatActivity {
 
         checkGender();
 
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        setupViewPager(mViewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.profile_icon);
+        tabLayout.getTabAt(1).setIcon(R.drawable.main_icon);
+        tabLayout.getTabAt(2).setIcon(R.drawable.chat_icon);
+
+        mViewPager.setCurrentItem(1);
+
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
 
-        mLogoutBtn = (Button) findViewById(R.id.btn_logout);
+//        mLogoutBtn = (Button) findViewById(R.id.btn_logout);
 
         rowItems = new ArrayList<Cards>();
 
@@ -92,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
                 usersDb.child(oppositeGender).child(userId).child("connections").child("nope")
                         .child(currentUId).setValue(true);
+                
+                isConnection(userId);
             }
 
             @Override
@@ -115,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
+        /*mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
@@ -123,7 +147,41 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(mContext, "You were logged out", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
+        });*/
+    }
+
+    private void setupViewPager(ViewPager mViewPager) {
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SettingsFragment());
+        adapter.addFragment(new CardsFragment());
+        adapter.addFragment(new ChatFragment());
+        mViewPager.setAdapter(adapter);
+
+    }
+
+    private void isConnection(String userId) {
+
+        DatabaseReference currentUserCopnnectionsDb = usersDb.child(userGender).child(currentUId)
+                .child("connections").child("like").child(userId);
+
+        currentUserCopnnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Toast.makeText(mContext, "A match has been made!", Toast.LENGTH_SHORT).show();
+                    usersDb.child(oppositeGender).child(dataSnapshot.getKey()).child("connections")
+                            .child("matches").child(currentUId).setValue(true);
+                    usersDb.child(userGender).child(currentUId).child("connections")
+                            .child("matches").child(dataSnapshot.getKey()).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
+
     }
 
 
