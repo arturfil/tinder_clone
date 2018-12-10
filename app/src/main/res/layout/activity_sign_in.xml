@@ -52,9 +52,6 @@
                     app:met_singleLineEllipsis="false"
                     />
 
-
-
-
                 <Button
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"

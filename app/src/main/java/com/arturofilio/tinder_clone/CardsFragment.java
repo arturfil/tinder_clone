@@ -1,6 +1,7 @@
 package com.arturofilio.tinder_clone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -239,7 +240,7 @@ public class CardsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Toast.makeText(mContext, "A match has been made!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "A match has been made!", Toast.LENGTH_SHORT).show();
                     usersDb.child(oppositeGender).child(dataSnapshot.getKey()).child("connections")
                             .child("matches").child(currentUId).setValue(true);
                     usersDb.child(userGender).child(currentUId).child("connections")
@@ -254,4 +255,5 @@ public class CardsFragment extends Fragment {
         });
 
     }
+
 }
