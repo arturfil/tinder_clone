@@ -28,6 +28,7 @@ public class SettingsFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings,container,false);
 
+        mAuth = FirebaseAuth.getInstance();
 
         mLogoutBtn = (Button) view.findViewById(R.id.btn_logout);
 
@@ -35,8 +36,8 @@ public class SettingsFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                Intent intent = new Intent(mContext, WelcomeActivity.class);
-                Toast.makeText(mContext, "You were logged out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), WelcomeActivity.class);
+                Toast.makeText(getContext(), "You were logged out", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

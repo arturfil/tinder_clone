@@ -31,7 +31,7 @@ public class arrayAdapter extends ArrayAdapter<Cards> {
         ImageView image = (ImageView) convertView.findViewById(R.id.img_view);
 
         name.setText(card_item.getName());
-        image.setImageResource(R.drawable.tinder_1);
+        image.setImageResource(R.drawable.tinder_profile);
 
         return convertView;
     }
